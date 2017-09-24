@@ -1,0 +1,41 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity mux_8_1 is
+	port(
+		x : IN  std_logic_vector(7 downto 0);
+		c : IN  std_logic_vector(2 downto 0);
+		y : OUT std_logic
+	);
+end mux_8_1;
+
+architecture v_1 of mux_8_1 is
+
+	COMPONENT mux_4_1
+	PORT(
+		x : IN std_logic_vector(3 downto 0);
+		c : IN std_logic_vector(1 downto 0);          
+		y : OUT std_logic
+		);
+	END COMPONENT;
+
+	signal y1 : std_logic := '0';
+	signal y2 : std_logic := '0';
+
+begin
+
+	X1 : mux_4_1 PORT MAP(
+		x => x(3 downto 0),
+		c => c(1 downto 0),
+		y => y1
+	);
+	
+	X2 : mux_4_1 PORT MAP(
+		x => x(7 downto 4),
+		c => c(1 downto 0),
+		y => y2
+	);
+	
+	y <= y1 when c(2) = '0' else
+	     y2;
+end v_1;

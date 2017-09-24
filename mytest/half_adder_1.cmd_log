@@ -1,0 +1,9 @@
+xst -intstyle ise -ifn "C:/Users/TEMP.ELE/Desktop/test/mytest/half_adder_1.xst" -ofn "C:/Users/TEMP.ELE/Desktop/test/mytest/half_adder_1.syr" 
+xst -intstyle ise -ifn "C:/Users/TEMP.ELE/Desktop/test/mytest/half_adder_1.xst" -ofn "C:/Users/TEMP.ELE/Desktop/test/mytest/half_adder_1.syr" 
+netgen -intstyle ise -ar Structure -tm half_adder_1 -w -dir netgen/synthesis -ofmt vhdl -sim half_adder_1.ngc half_adder_1_synthesis.vhd 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -i -p xc3s100e-vq100-4 half_adder_1.ngc half_adder_1.ngd  
+map -intstyle ise -p xc3s100e-vq100-4 -cm area -ir off -pr off -c 100 -o half_adder_1_map.ncd half_adder_1.ngd half_adder_1.pcf 
+par -w -intstyle ise -ol high -t 1 half_adder_1_map.ncd half_adder_1.ncd half_adder_1.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml half_adder_1.twx half_adder_1.ncd -o half_adder_1.twr half_adder_1.pcf 
+bitgen -intstyle ise -f half_adder_1.ut half_adder_1.ncd 
+vhdtdtfi -prj mytest -o C:/Users/TEMP.ELE/Desktop/test/mytest/half_adder_1.vhi -module half_adder_1 -template C:/Xilinx/14.7/ISE_DS/ISE//data/vhdlinst.tft -deleteonerror -lib work half_adder_1.vhd 

@@ -1,0 +1,5 @@
+set -tmpdir "C:/Users/TEMP.ELE/Desktop/test/mytest/xst/projnav.tmp"
+set -xsthdpdir "C:/Users/TEMP.ELE/Desktop/test/mytest/xst"
+elaborate
+-ifn full_adder_1.prj
+-ifmt mixed

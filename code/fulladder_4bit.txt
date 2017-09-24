@@ -1,0 +1,111 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity fadder_4bit is
+	port(
+		A    : in  std_logic_vector(3 downto 0);
+		B    : in  std_logic_vector(3 downto 0);
+		Cin  : in  std_logic;
+		Cout : out std_logic;
+		Sum  : out std_logic_vector(3 downto 0)
+	);
+end fadder_4bit;
+
+architecture inst of fadder_4bit is
+
+	component fulladder
+		port (
+			A    : in  std_logic;
+			B    : in  std_logic;
+			Cin  : in  std_logic;
+			Cout : out std_logic;
+			S    : out std_logic
+		);
+	end component;
+
+	signal carry_vector : std_logic_vector(3 downto 0) := (others => '0');
+
+begin
+
+	F1: fulladder
+		port map(
+			A    => A(0),
+			B    => B(0),
+			Cin  => Cin,
+			Cout => carry_vector(0),
+			S    => Sum(0)
+		);
+		
+	F2: fulladder
+		port map(
+			A    => A(1),
+			B    => B(1),
+			Cin  => carry_vector(0),
+			Cout => carry_vector(1),
+			S    => Sum(1)
+		);
+		
+	F3: fulladder
+		port map(
+			A    => A(2),
+			B    => B(2),
+			Cin  => carry_vector(1),
+			Cout => carry_vector(2),
+			S    => Sum(2)
+		);
+		
+	F4: fulladder
+		port map(
+			A    => A(3),
+			B    => B(3),
+			Cin  => carry_vector(2),
+			Cout => carry_vector(3),
+			S    => Sum(3)
+		);
+				
+		Cout <= carry_vector(3);
+
+end inst;
+
+architecture for_gen of fadder_4bit is
+
+	component fulladder
+		port (
+			A    : in  std_logic;
+			B    : in  std_logic;
+			Cin  : in  std_logic;
+			Cout : out std_logic;
+			S    : out std_logic
+		);
+	end component;
+
+	signal carry_vector : std_logic_vector(3 downto 0) := (others => '0');
+
+begin
+
+	F1 : fulladder
+		port map( 
+			A    => A(0), 
+			B    => B(0), 
+			Cin  => Cin,
+			Cout => carry_vector(0),
+			S    => Sum(0)
+		);
+
+	gen_fadder:
+		for i in 1 to 3 generate
+			Fx : fulladder
+				port map(
+					A    => A(i),
+					B    => B(i),
+					Cin  => carry_vector(i-1),
+					Cout => carry_vector(i),
+					S    => Sum(i)
+				);
+		end generate gen_fadder;
+	
+	Cout <= carry_vector(3);
+
+end for_gen;

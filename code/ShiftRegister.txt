@@ -1,0 +1,39 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity ShiftRegister is
+	Port(
+		LOCAL_CLOCK   : in  STD_LOGIC;
+		LOAD          : in  STD_LOGIC;
+		ENABLE        : in  STD_LOGIC;
+		D             : in  STD_LOGIC;
+		DATA_IN       : in  STD_LOGIC_VECTOR (7 downto 0);
+		Q             : out STD_LOGIC
+	);
+end ShiftRegister;
+
+architecture Behavioral of ShiftRegister is
+
+	signal DATA_MEM : STD_LOGIC_VECTOR(7 downto 0) := (others => '0');
+	signal DATA_OUT : STD_LOGIC := '0';
+
+begin
+
+	SR : process(LOCAL_CLOCK)
+	begin
+		if (LOCAL_CLOCK'event and LOCAL_CLOCK = '1') then
+			if (LOAD = '1') then
+				DATA_MEM <= DATA_IN;
+			elsif (ENABLE = '1') then
+				DATA_MEM <= D & DATA_MEM(7 downto 1);
+				DATA_OUT <= DATA_MEM(0);
+			end if;
+		end if;
+	end process;
+
+	Q <= DATA_OUT;
+
+end Behavioral;
+

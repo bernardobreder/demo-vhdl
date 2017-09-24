@@ -1,0 +1,5 @@
+set -tmpdir "C:/Users/TEMP.ELE.000/Downloads/mytest/mytest/xst/projnav.tmp"
+set -xsthdpdir "C:/Users/TEMP.ELE.000/Downloads/mytest/mytest/xst"
+elaborate
+-ifn counter4.prj
+-ifmt mixed

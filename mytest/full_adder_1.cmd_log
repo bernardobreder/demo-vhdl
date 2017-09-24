@@ -1,0 +1,2 @@
+vhdtdtfi -prj mytest -o C:/Users/TEMP.ELE/Desktop/test/mytest/full_adder_1.vhi -module full_adder_1 -template C:/Xilinx/14.7/ISE_DS/ISE//data/vhdlinst.tft -deleteonerror -lib work half_adder_1.vhd -lib work full_adder_1.vhd 
+vhdtdtfi -prj mytest -o C:/Users/TEMP.ELE/Desktop/test/mytest/full_adder_1.vhi -module full_adder_1 -template C:/Xilinx/14.7/ISE_DS/ISE//data/vhdlinst.tft -deleteonerror -lib work half_adder_1.vhd -lib work full_adder_1.vhd 

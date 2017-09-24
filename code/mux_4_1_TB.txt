@@ -1,0 +1,78 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+ 
+ENTITY mux_4_1_TB IS
+END mux_4_1_TB;
+ 
+ARCHITECTURE behavior OF mux_4_1_TB IS 
+
+	-- Component Declaration for the Unit Under Test (UUT)
+	COMPONENT mux_4_1
+		PORT(
+			x : IN  std_logic_vector(3 downto 0);
+			c : IN  std_logic_vector(1 downto 0);
+			y : OUT  std_logic
+		);
+	END COMPONENT;
+
+	--Inputs
+	signal x : std_logic_vector(3 downto 0) := (others => '0');
+	signal c : std_logic_vector(1 downto 0) := (others => '0');
+
+	--Outputs
+	signal y : std_logic;
+	-- No clocks detected in port list. Replace clock below with 
+	-- appropriate port name 
+
+	signal clock : std_logic := '0';
+	constant clock_period : time := 10 ns;
+
+BEGIN
+ 
+	-- Instantiate the Unit Under Test (UUT)
+   uut: entity work.mux_4_1(v_3) PORT MAP (
+          x => x,
+          c => c,
+          y => y
+        );
+
+   -- Clock process definitions
+   clock_process :process
+   begin
+		clock <= '1';
+		wait for clock_period/2;
+		clock <= '0';
+		wait for clock_period/2;
+   end process;
+ 
+
+   -- Stimulus process
+   stim_proc: process
+   begin		
+		x <= "1011";
+
+		c <= "00";
+      wait for 100 ns;
+		c <= "01";
+      wait for 100 ns;
+		c <= "10";
+      wait for 100 ns;
+		c <= "11";
+      wait for 100 ns;
+		
+		x <= "0100";
+      wait for 200 ns;
+
+		c <= "00";
+      wait for 100 ns;
+		c <= "01";
+      wait for 100 ns;
+		c <= "10";
+      wait for 100 ns;
+		c <= "11";
+      wait for 100 ns;
+
+      wait;
+   end process;
+
+END;

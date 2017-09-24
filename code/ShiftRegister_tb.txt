@@ -1,0 +1,90 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+ 
+ENTITY ShiftRegister_tb IS
+END ShiftRegister_tb;
+ 
+ARCHITECTURE behavior OF ShiftRegister_tb IS 
+ 
+    -- Component Declaration for the Unit Under Test (UUT)
+ 
+	COMPONENT ShiftRegister
+		PORT(
+			LOCAL_CLOCK   : in  STD_LOGIC;
+			LOAD          : in  STD_LOGIC;
+			ENABLE        : in  STD_LOGIC;
+			D             : in  STD_LOGIC;
+			DATA_IN       : in  STD_LOGIC_VECTOR (7 downto 0);
+			Q             : out STD_LOGIC
+		);
+	END COMPONENT;
+    
+
+   --Inputs
+   signal LOCAL_CLOCK : std_logic := '0';
+   signal LOAD : std_logic := '0';
+   signal ENABLE : std_logic := '0';
+	signal D : std_logic := '0';
+   signal DATA_IN : std_logic_vector(7 downto 0) := (others => '0');
+
+ 	--Outputs
+   signal Q : std_logic;
+
+   -- Clock period definitions
+   constant LOCAL_CLOCK_period : time := 30 ns;
+ 
+BEGIN
+ 
+	-- Instantiate the Unit Under Test (UUT)
+   uut: ShiftRegister PORT MAP (
+          LOCAL_CLOCK => LOCAL_CLOCK,
+          LOAD => LOAD,
+          ENABLE => ENABLE,
+			 D => D,
+          DATA_IN => DATA_IN,
+          Q => Q
+        );
+
+   -- Clock process definitions
+   LOCAL_CLOCK_process :process
+   begin
+		LOCAL_CLOCK <= '1';
+		wait for LOCAL_CLOCK_period/2;
+		LOCAL_CLOCK <= '0';
+		wait for LOCAL_CLOCK_period/2;
+   end process;
+ 
+
+   -- Stimulus process
+   stim_proc: process
+   begin		
+      wait for 60 ns;	
+
+      DATA_IN <= "10110011";
+		LOAD    <= '1';
+		wait for LOCAL_CLOCK_period;
+		LOAD    <= '0';
+		ENABLE  <= '1';
+		wait for LOCAL_CLOCK_period*9;
+		ENABLE  <= '0';
+
+		wait for LOCAL_CLOCK_period*4;
+
+      DATA_IN <= "10110011";
+		LOAD    <= '1';
+		D       <= '1';
+		wait for LOCAL_CLOCK_period;
+		LOAD    <= '0';
+		ENABLE  <= '1';
+		wait for LOCAL_CLOCK_period*16;
+		ENABLE  <= '0';
+		
+
+      -- insert stimulus here 
+
+      wait;
+   end process;
+
+END;

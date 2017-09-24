@@ -1,0 +1,8 @@
+INTSTYLE=ise
+INFILE=C:\Users\TEMP.ELE\Desktop\test\mytest\half_adder_1.ncd
+OUTFILE=C:\Users\TEMP.ELE\Desktop\test\mytest\half_adder_1.bit
+FAMILY=Spartan3E
+PART=xc3s100e-4vq100
+WORKINGDIR=C:\Users\TEMP.ELE\Desktop\test\mytest
+LICENSE=ISE
+USER_INFO=175353716_1777494935_210567305_268

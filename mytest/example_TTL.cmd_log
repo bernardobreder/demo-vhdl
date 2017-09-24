@@ -1,0 +1,1 @@
+xst -intstyle ise -ifn "C:/Users/TEMP.ELE/Desktop/test/mytest/example_TTL.xst" -ofn "C:/Users/TEMP.ELE/Desktop/test/mytest/example_TTL.syr" 
